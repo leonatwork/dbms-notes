@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import Index from "./index";
 import Notes from "./notes";
+import { notes } from "../data/notes-object";
 
 class Content extends Component {
-  state = {};
+  state = {
+    activeNoteID: 0,
+  };
+
+  handleClick = (id) => {
+    this.setState({ activeNoteID: id });
+  };
+
   render() {
     return (
       <div className="row">
         <div className="col-3">
-          <Index />
+          <Index
+            notes={notes}
+            activeNoteID={this.state.activeNoteID}
+            handleClick={this.handleClick}
+          />
         </div>
         <div className="col">
-          <Notes />
+          <Notes note={notes[this.state.activeNoteID].content} />
         </div>
       </div>
     );

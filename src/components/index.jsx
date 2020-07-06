@@ -4,12 +4,21 @@ class Index extends Component {
   state = {};
   render() {
     return (
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
+      <ul className="list-group list-group-flush">
+        {this.props.notes.map((note) => {
+          let className = "list-group-item";
+          if (note.id === this.props.activeNoteID) className += " active";
+          return (
+            <li
+              key={note.id}
+              className={className}
+              onClick={() => this.props.handleClick(note.id)}
+              style={{ cursor: "pointer" }}
+            >
+              {note.title}
+            </li>
+          );
+        })}
       </ul>
     );
   }
