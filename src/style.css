@@ -1,0 +1,17 @@
+.active-me {
+  background-color: #bbdefb;
+}
+.active {
+  background-color: #bbdefb !important;
+  border: none !important;
+}
+
+body {
+  background-color: white;
+}
+
+h1,
+h3,
+h4 {
+  font-family: "Merienda One", cursive;
+}

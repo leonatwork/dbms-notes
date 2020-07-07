@@ -4,26 +4,25 @@ import Notes from "./notes";
 import { notes } from "../data/notes-object";
 
 class Content extends Component {
-  state = {
-    activeNoteID: 5,
-  };
-
-  handleClick = (id) => {
-    this.setState({ activeNoteID: id });
-  };
+  state = {};
 
   render() {
     return (
-      <div className="row">
-        <div className="col-3">
-          <Index
-            notes={notes}
-            activeNoteID={this.state.activeNoteID}
-            handleClick={this.handleClick}
-          />
-        </div>
+      <div
+        className="row"
+        style={{ width: "80%", margin: "0 auto", paddingTop: "15px" }}
+      >
+        {!this.props.showNav && (
+          <div className="col-3" style={{ borderRight: "1px solid #eee" }}>
+            <Index
+              notes={notes}
+              activeNoteID={this.props.activeNoteID}
+              handleClick={this.props.handleClick}
+            />
+          </div>
+        )}
         <div className="col">
-          <Notes note={notes[this.state.activeNoteID].content} />
+          <Notes note={notes[this.props.activeNoteID].content} />
         </div>
       </div>
     );

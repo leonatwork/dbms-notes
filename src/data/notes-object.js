@@ -596,4 +596,22 @@ export const notes = [
       </div>
     ),
   },
+  {
+    id: 6,
+    title: "Transactions",
+    content: (
+      <div>
+        <h1>Coming soon</h1>
+      </div>
+    ),
+  },
+  {
+    id: 7,
+    title: "Concurrency control",
+    content: (
+      <div>
+        <h1>Coming soon</h1>
+      </div>
+    ),
+  },
 ];
