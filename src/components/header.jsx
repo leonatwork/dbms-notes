@@ -16,7 +16,10 @@ class Header extends Component {
     if (this.props.showNav) {
       return (
         <Navbar collapseOnSelect style={navbarStyle} expand="lg">
-          <Navbar.Brand style={navbarTextStyle} href="/">
+          <Navbar.Brand
+            style={navbarTextStyle}
+            href="https://leonatwork.github.io/dbms-notes/"
+          >
             DBMS Notes
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -45,7 +48,10 @@ class Header extends Component {
     }
     return (
       <Navbar expand="lg" style={navbarStyle}>
-        <Navbar.Brand href="/" style={navbarTextStyle}>
+        <Navbar.Brand
+          href="https://leonatwork.github.io/dbms-notes/"
+          style={navbarTextStyle}
+        >
           DBMS Notes
         </Navbar.Brand>
       </Navbar>
