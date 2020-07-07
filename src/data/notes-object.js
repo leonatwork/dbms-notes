@@ -213,13 +213,387 @@ export const notes = [
   {
     id: 3,
     title: "Functional dependencies",
-    content:
-      "3 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitaedoloremque delectus harum consectetur blanditiis iste dignissimos eligendi sequi esse sit illo quaerat aut maxime, laborum soluta tempore exercitationem magni dolorem!",
+    content: (
+      <div>
+        <h1>Functional dependencies</h1>
+        <hr />
+        <div>
+          <b>f: a -{">"} b</b>
+          <p>
+            Given the value of <b>a</b>, we can uniquely determine the value of
+            <b> b</b>.
+          </p>
+          <p>
+            <b>Trivial functional dependency : </b>
+            <b>b</b> is a subset of
+            <b> a</b>.
+          </p>
+          <p>
+            <b>Non-trivial functional dependency : </b>
+            <b>b</b> is a NOT a subset of
+            <b> a</b>.
+          </p>
+          <p>
+            <b>Attribute closure</b> of an attribute set <b>A</b> can be defined
+            as a set of attributes which can be functionally determined from it.
+            It is denoted by
+            <b>
+              {" "}
+              F<sup>+</sup>.
+            </b>
+          </p>
+        </div>
+        <hr />
+        <div>
+          <h4>Armstrong axioms</h4>
+          <p>
+            Axioms are the rules which are considered true and used to derive
+            other results.
+          </p>
+          <b>Primary rules</b>
+          <ul>
+            <li>
+              <b>Reflexivity</b>
+              <p>If y is subset of x then x -{">"} y</p>
+            </li>
+            <li>
+              <b>Augmentation</b>
+              <p>
+                x -{">"} y then xz -{">"} yz
+              </p>
+            </li>
+            <li>
+              <b>Transitivity</b>
+              <p>
+                x -{">"} y and y -{">"} z then x -{">"} z
+              </p>
+            </li>
+          </ul>
+          <b>Secondary rules</b>
+          <ul>
+            <li>
+              <b>Union</b>
+              <p>
+                x -{">"} y and x -{">"} z then x -{">"} yz
+              </p>
+            </li>
+            <li>
+              <b>Decomposition</b>
+              <p>
+                x -{">"} yz then x -{">"} y and x -{">"} z
+              </p>
+            </li>
+            <li>
+              <b>Pseudo transitivity</b>
+              <p>
+                x -{">"} y and wy -{">"} z then xw -{">"} zz
+              </p>
+            </li>
+            <li>
+              <b>Composition</b>
+              <p>
+                x -{">"} y and z -{">"} w then xz -{">"} yw
+              </p>
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <div>
+          <h4>Canonical form</h4>
+          <p>It is the irreducible set of functional dependencies.</p>
+          <b>Steps</b>
+          <ol>
+            <li>Decompose all dependencies</li>
+            <li>
+              For all the rules :
+              <ol>
+                <li>Find closure of the LHS of a rule</li>
+                <li>
+                  Find closure of the lhs of the same rule ignoring that rule
+                  itself
+                </li>
+                <li>
+                  If both closures are same then that rule is redundant so
+                  remove it otherwise include it
+                </li>
+              </ol>
+            </li>
+            <li>
+              For all the rules :
+              <ol>
+                <li>
+                  If LHS is compound then find its closure and closure of each
+                  subset of elements in it
+                </li>
+                <li>
+                  If closure of particular element matches the main closure then
+                  other elements on LHS are redundant
+                </li>
+              </ol>
+            </li>
+          </ol>
+          <p>
+            Finally the set of rules you have is the canonical form/canonical
+            cover/minimal cover/irreducible form.
+          </p>
+        </div>
+      </div>
+    ),
   },
   {
     id: 4,
-    title: "Title 4",
-    content:
-      "4 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitaedoloremque delectus harum consectetur blanditiis iste dignissimos eligendi sequi esse sit illo quaerat aut maxime, laborum soluta tempore exercitationem magni dolorem!",
+    title: "Normalization",
+    content: (
+      <div>
+        <h1>Normalization</h1>
+        <hr />
+        <p>
+          <b>Normalization</b> is the method to organize data into multiple
+          related tables to avoid data redundancy.
+        </p>
+        <div>
+          <b>Redundancy issues</b>
+          <br />
+          Consider a table student table (roll no, name, branch name, HOD name,
+          HOD phone no)
+          <ul>
+            <li>
+              <b>Insertion anomaly</b>
+              <p>
+                Inserting redundant data (HOD info) for every new entry of a
+                student. Also new student record cannot be created if HOD
+                information is not available, even though both are logically
+                seperate entities.
+              </p>
+            </li>
+            <li>
+              <b>Deletion anomaly</b>
+              <p>
+                This happens when two separate items have the same table and we
+                wish to delete entry of one item and other also gets deleted.{" "}
+                <br />
+                <b>Eg.</b> If student info is deleted then HOD's info also gets
+                deleted.
+              </p>
+            </li>
+            <li>
+              <b>Updation anomaly</b>
+              <p>
+                If a value is updated then all its redundant copies needs to be
+                updated. <br />
+                <b>Eg. </b>If HOD phone no. is updated then for every student
+                entry we need to update it.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <h4>Normalization forms</h4>
+        <div>
+          <b>1 NF</b>
+          <ul>
+            <li>
+              Each column should contain atomic values (i.e each column has a
+              single value)
+            </li>
+            <li>A column should contain value of the same type</li>
+            <li>Each column should have a unique name</li>
+            <li>Order in which data is stored in table doesn't matter</li>
+          </ul>
+          <b>2 NF</b>
+          <ul>
+            <li>Table should be in 1 NF</li>
+            <li>
+              Table should not have any <b>partial dependencies</b> (partial
+              prime attr. -{">"} non prime attr.) i.e. if primary key of the
+              table is composition of more tham 1 columns and a particular
+              column of the table only depends on a subset of the primary key
+              columns and has nothing to do with other columns of the primary
+              key
+            </li>
+            <li>
+              While decomposing a table, we always make a seperate table for
+              candidate keys otherwise it will be a lossy decomposition.
+            </li>
+          </ul>
+          <b>3 NF</b>
+          <ul>
+            <li>Table should be in 2 NF</li>
+            <li>
+              Table should not have <b>transitive dependency</b> (non prime
+              attr. -{">"} non prime attr.) i.e. when there is an attribute in a
+              table which depends upon non-prime attribute which inturn depends
+              on the prime attributes
+            </li>
+          </ul>
+          <b>BCNF (Boyce Codd Normal Form - 3.5 NF)</b>
+          <ul>
+            <li>Table should be in 3 NF</li>
+            <li>
+              For any dependency A -{">"} B, A should be super key i.e no
+              dependencty of type (non prime attr -{">"} prime attr)
+            </li>
+            <li>
+              Conversions from 1 NF to 2 NF and 2 NF to 3 NF will not result in
+              any loss of functional dependencies. But conversion from 3 NF to
+              BCNF may sometimes result in functional dependency loss.
+              <br />
+              Decomposing R to R1 and R2 will be loss-less if :
+              <ul style={{ listStyleType: "none" }}>
+                <li>attr(R1) U attr(R2) = attr(R)</li>
+                <li>attr(R1) &#x2229; attr(R2) = &#934;</li>
+                <li>
+                  attr(R1) &#x2229; attr(R2) = key of (R1) or attr(R1) &#x2229;
+                  attr(RR2) = key of (R2)
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <b>4 NF</b>
+          <ul>
+            <li>Table should be in BCNF</li>
+            <li>
+              Table should not have multi-valued dependency i.e. if A -{">"} B
+              then for a particular value of A there exists multiple values of B
+            </li>
+            <li>
+              For table to have multi-valued dependency it should have at least
+              3 columns (A,B,C) and B,C should be independent
+            </li>
+          </ul>
+          <b>5 NF (PJNF - Project Join Normal Form)</b>
+          <ul>
+            <li>Table should be in 4 NF</li>
+            <li>
+              Table should not have join dependency i.e. if decomposing a table
+              results in loss of information or creation of new info then don't
+              do it.
+            </li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 5,
+    title: "File structure & Indexing",
+    content: (
+      <div>
+        <h1>File structure & Indexing</h1>
+        <hr />
+        <p>
+          DB Files are stored in blocks in secondary memory in contiguous or
+          non-contiguous manner.
+        </p>
+        <b>Sorted file</b>
+        <ul>
+          <li>Can be sorted only according to one attribute (search key)</li>
+          <li>Searching is fast (binary search)</li>
+          <li>Insertion and deletion will be hard</li>
+        </ul>
+        <b>Unsorted file</b>
+        <ul>
+          <li>Random order</li>
+          <li>Searching is slow</li>
+          <li>Insertion and deletion is easy</li>
+        </ul>
+        <b>Spanned mapping</b>
+        <ul>
+          <li>Internal fragmentation is avoided</li>
+          <li>
+            If space is left in a block after storing file then next file is
+            stored in this void partially
+          </li>
+        </ul>
+        <b>Unspanned mapping</b>
+        <ul>
+          <li>Internal fragmentation possible</li>
+          <li>File is put only if it fits the available space</li>
+        </ul>
+        <hr />
+        <h4>Indexing</h4>
+        <p>
+          To search a record in db file, first find the block in which the
+          record lies then find the record in that block. To speed up search we
+          maintain a separate index file. Index file is small hence search is
+          faster.
+          <br />
+          <b>Index file (search key, block pointer)</b>
+          <br />
+          index file is always sorted (binary search applied)
+          <br />
+          Blocking factor = no. of records in a block = floor(block size /
+          record size)
+        </p>
+        <p>
+          <b>Dense indexing :</b> index record is present for all records in the
+          main table. Sorted table not required
+          <br />
+          <b>Sparse indexing :</b> index record is present for selected records
+          of the main table. Sorted table required
+        </p>
+        <div>
+          <b>Types of Indexing</b>
+          <ol>
+            <li>
+              <b>Single level indexing</b>
+              <ol>
+                <li>
+                  Primary indexing
+                  <ul>
+                    <li>Search key is primary key</li>
+                    <li>File should be sorted on primary key</li>
+                    <li>Sparse indexing</li>
+                    <li>
+                      No. of index file entries = no. of blocks used by the main
+                      file
+                    </li>
+                    <li>No. of accesses log(n) + 1</li>
+                  </ul>
+                </li>
+                <li>
+                  Secondary indexing
+                  <ul>
+                    <li>Main file is not sorted</li>
+                    <li>Dense indexing</li>
+                    <li>Search key can be prime key or non key</li>
+                    <li>
+                      Different techniques to store block pointers used when
+                      search keys are duplicated
+                    </li>
+                    <li>Access time ceil(log(n)) + 1</li>
+                  </ul>
+                </li>
+                <li>
+                  Clustered indexing
+                  <ul>
+                    <li>
+                      Similar to primary indexing but main file is sorted on non
+                      primary key but the attribute to be searched is not
+                      primary key
+                    </li>
+                    <li>
+                      There will be one entry in the index for each unique value
+                    </li>
+                    <li>Access resuired >= log(n) + 1</li>
+                    <li>
+                      It satisfies condition of both sparse and dense indexing
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <b>Multi-level indexing</b>
+              <p>
+                If index is very large then we again split it to make multiple
+                levels of indexing i.e we make index of index to speed up the
+                search more.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    ),
   },
 ];

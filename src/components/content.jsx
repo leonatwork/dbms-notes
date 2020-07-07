@@ -5,7 +5,7 @@ import { notes } from "../data/notes-object";
 
 class Content extends Component {
   state = {
-    activeNoteID: 0,
+    activeNoteID: 5,
   };
 
   handleClick = (id) => {
