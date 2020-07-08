@@ -189,7 +189,7 @@ export const notes = [
               a record
             </li>
             <li>
-              <b>foriegn key :</b> an attribute in table which is used to define
+              <b>Foreign key :</b> an attribute in table which is used to define
               its relationship with another table
             </li>
             <li>
@@ -601,7 +601,92 @@ export const notes = [
     title: "Transactions",
     content: (
       <div>
-        <h1>Coming soon</h1>
+        <h1>Transactions</h1>
+        <hr />
+        <p>
+          <b>Transaction </b>is a set of instruction which performs a logical
+          unit of work. They are atomic in nature, i.e if failure occur in the
+          mid then it needs to rollback again to the start.
+        </p>
+        <hr />
+        <div>
+          <h4>Transaction ACID properties</h4>
+          <ol>
+            <li>
+              <b>Atomicity</b>
+              <ul>
+                <li>
+                  Either all instructions of a transaction will run or none
+                </li>
+                <li>
+                  Transaction management component ensures atomicity in DBMS
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Consistency</b>
+              <ul>
+                <li>
+                  If DB is consistent before transaction then it should remain
+                  consistent after transaction
+                </li>
+                <li>
+                  <b>Eg.</b> in case of account money transfer, total sum before
+                  and after the transfer should be same
+                </li>
+                <li>
+                  No separate component takes care of consistency, it is
+                  automatically achieved if transaction is atomic, durable and
+                  isolated
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Isolation</b>
+              <ul>
+                <li>
+                  Transaction should be logically isolated i.e. transaction
+                  should not be affected by other transaction running
+                  concurrently
+                </li>
+                <li>
+                  Transaction should produce same result as if it is running
+                  alone in the absence of other transactions
+                </li>
+                <li>Concurrency control component ensures isolation in DBMS</li>
+              </ul>
+            </li>
+            <li>
+              <b>Durability</b>
+              <ul>
+                <li>
+                  Changes made by a successful transaction should be persistent
+                  in the system
+                </li>
+                <li>Recovery management component ensures durability</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+        <hr />
+        <div>
+          <h4>Transaction states</h4>
+          <ol>
+            <li>Active (executing stage)</li>
+            <li>Partially committed (result stored in local buffer)</li>
+            <li>Committed (result copied to main store)</li>
+            <li>
+              Terminated (final state) (system ready for next transaction)
+            </li>
+            <li>Failed (some error occured and we then roll back)</li>
+            <li>Aborted (reached from failed state after roll back)</li>
+          </ol>
+          <p>
+            Committed transactions cannot be rollbacked. We can run a new
+            transaction (compensating transaction) which undos the changed
+            value.
+          </p>
+        </div>
       </div>
     ),
   },
@@ -610,7 +695,224 @@ export const notes = [
     title: "Concurrency control",
     content: (
       <div>
-        <h1>Coming soon</h1>
+        <h1>Concurrency control</h1>
+        <hr />
+        <div>
+          <b>Advantages of concurrency</b>
+          <ul>
+            <li>Less wait time</li>
+            <li>Less response time</li>
+            <li>More resource utilization</li>
+            <li>More efficiency</li>
+          </ul>
+          <p>
+            Concurrency does not mean two instructions are running parallely.
+            Transaction intructions are just interleaved.
+          </p>
+          <b>Disadvantages of concurrency</b>
+          <ul>
+            <li>
+              <b>Dirty read problem</b>
+              <ul>
+                <li>
+                  When a transaction reads an intermediate uncommitted value by
+                  some other transaction and treats it as a true value and
+                  commits to the main DB
+                </li>
+                <li>
+                  <b>Sol :</b> the reading transaction commits after the other
+                  transaction writing its value has committed
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Unrepeatable read problem</b>
+              <ul>
+                <li>
+                  When a transaction reads a variable twice consecutively and
+                  gets different value each time because some other transaction
+                  has modified it in the time between.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Phantom read problem</b>
+              <ul>
+                <li>
+                  A transaction reads a variable, then another transaction
+                  deletes that variable and then again first transaction reads
+                  that variable and finds that the variable doesn't exist
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Lost update problem (write-write conflict)</b>
+              <ul>
+                <li>
+                  A transaction reads and writes a variable then another
+                  transaction performs blind write (write without reading
+                  before) on that variable then commits, after that first
+                  transaction commits. So here changes made by the first
+                  transaction is lost.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <div>
+          <h4>Types of schedule</h4>
+          <ul>
+            <li>
+              <b>Serial schedule</b>
+              <ul>
+                <li>Transaction instructions are not interleaved</li>
+                <li>No context switching</li>
+              </ul>
+            </li>
+            <li>
+              <b>Non-serial schedule</b>
+              <ul>
+                <li>Transaction instructions are interleaved</li>
+                <li>Context switching happens</li>
+              </ul>
+            </li>
+            <li>
+              <b>Conflict serializable</b>
+              <ul>
+                <li>
+                  If we can make a non-serial schedule, serial by swapping
+                  instructions then that non-serial schedule is conflict
+                  serializable and is consistent. But if we cannot swap and make
+                  it serial then we cannot definitely say that it is
+                  inconsistent
+                </li>
+                <li>
+                  If we can swap instruction then they are non-conflicting
+                </li>
+                <li>
+                  When are instructions conflicting :
+                  <ol>
+                    <li>Instructions should be of different transactions</li>
+                    <li>
+                      If instruction are on different data items then they are
+                      non-conflicting
+                    </li>
+                    <li>RR on same data is non-conflicting</li>
+                    <li>WR on same data are conflicting</li>
+                    <li>WR on same data are conflicting</li>
+                    <li>WW on same data are conflicting</li>
+                  </ol>
+                </li>
+                <li>
+                  How to check for conflict serializability :
+                  <ul>
+                    <li>
+                      Draw graph
+                      <br />
+                      T1 -{">"} T2 (transaction T1 must happen before T2)
+                    </li>
+                    <li>
+                      If cycle present then it is not conflict serializable O(n
+                      <sup>2</sup>)
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>View serializability</b>
+              <ul>
+                <li>Weaker form of consistency than conflict serializable</li>
+                <li>If schedule is CS then it will surely be VS</li>
+                <li>
+                  If a schedule is VS then we cannot say that it is surely CS
+                </li>
+                <li>
+                  If a schedule is not CS then for it to be VS it has to have at
+                  least 1 blind write
+                </li>
+                <li>
+                  To check for VS we have to check view equivalency of all
+                  permutations of transaction in a serial schedule with the
+                  given schedule
+                  <ul>
+                    <li>
+                      All initial reads on data item should be done by same
+                      transaction
+                    </li>
+                    <li>
+                      All final writes on data should be done by same
+                      transaction
+                    </li>
+                    <li>
+                      For all intermediate reads, the transaction should read
+                      the value written by same transaction in both the
+                      schedules
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Recoverable schedule</b>
+              <ul>
+                <li>
+                  Even if schedule is consistent a failure can make it
+                  inconsistent
+                </li>
+                <li>If dirty read is absent then it is recoverable</li>
+                <li>
+                  If dirty read present then the transaction doing the dirty
+                  read commits last then also its recoverable otherwise non
+                  recoverable
+                </li>
+                <p>
+                  <b>Cascading rollback :</b> when one transaction rollbacks and
+                  on seeing this, another dependent transaction starts to roll
+                  back and so on ...
+                </p>
+              </ul>
+            </li>
+            <li>
+              <b>Cascadeless schedule</b>
+              <ul>
+                <li>
+                  Transaction instantly commits before a dependent transaction
+                  performs a dirty read, hence dirty read is prevented and it
+                  becomes cascadeless
+                </li>
+                <li>This is more restrictive form of recoverable schedule</li>
+                <li>
+                  If transaction is cascadeless then it is surely recoverable
+                  but vice versa is not always true
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Strict schedule</b>
+              <ul>
+                <li>
+                  If a transaction is performing write operation on a data item,
+                  then no other transaction can read or wire same data until
+                  first transaction has committed
+                </li>
+                <li>It is most restrictive</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <div>
+          <h4>Concurrency control techniques</h4>
+          <div>
+            <ul>
+              <li>Time stamping protocols</li>
+              <li>Lock based protocols</li>
+              <li>Validation protocol</li>
+            </ul>
+          </div>
+        </div>
       </div>
     ),
   },
