@@ -4,7 +4,7 @@ import Content from "./content";
 import { notes } from "../data/notes-object";
 
 class Main extends Component {
-  state = { showResponsiveNav: false, activeNoteID: 7 };
+  state = { showResponsiveNav: false, activeNoteID: 0 };
   resize() {
     let currentShowNav = window.innerWidth < 950;
     if (currentShowNav !== this.state.showNav) {
