@@ -1245,6 +1245,190 @@ export const notes = [
   {
     id: 9,
     title: "SQL",
-    content: <h1>Coming soon</h1>,
+    content: (
+      <div>
+        <h1>SQL (Structured Query Language)</h1>
+        <hr />
+        <div>
+          <b>SQL</b> is a standard language for relational database management
+          systems
+          <ul>
+            <li>SQL is domain specific</li>
+            <li>SQL is not case sensitive</li>
+          </ul>
+          <b>DDL : </b>data definition language
+          <br />
+          <b>DML : </b>data manipulation language
+          <br />
+          <b>TCL : </b>transaction control language
+          <br />
+        </div>
+        <hr />
+        <div>
+          <h4>General Query Syntax</h4>
+          <p>
+            SELECT attributes
+            <br /> FROM table_name
+            <br /> WHERE condition
+          </p>
+        </div>
+        <hr />
+        <div>
+          <h4>Cross table queries</h4>
+          <b>Cartesian product </b>(every row in table-1 is associated to every
+          row in table-2)
+          <p>
+            SELECT ...
+            <br />
+            FROM table1, table2
+            <br />
+            WHERE table1.id = table2.id
+          </p>
+          <b>Joins</b> (improved version of cartesian product)
+          <ul>
+            <li>
+              <b>Natural join</b>
+              <br />
+              Considers same value of common attribute in 2 tables for matching
+            </li>
+            <p>
+              SELECT ...
+              <br />
+              FROM table1 NATURAL JOIN table2
+              <br />
+              WHERE ...
+            </p>
+            <li>
+              <b>Join/Inner join</b>
+              <br />
+              Inner join or just join, both are same
+            </li>
+            <ul>
+              <li>Join based on an attribute</li>
+              <p>
+                SELECT ...
+                <br />
+                FROM table1 JOIN table2 using (id)
+              </p>
+              <li>Join based on condition</li>
+              <p>
+                SELECT ...
+                <br />
+                FROM table1 JOIN table2 on table1.id = table2.id
+              </p>
+            </ul>
+            <li>
+              <b>Outer join</b>
+              <br />
+              Problem of data loss in above joins (unmatched columns)
+              <ul>
+                <li>
+                  <b>Left outer join :</b> full left table and matching of right
+                  table others NULL
+                </li>
+                <li>
+                  <b>Right outer join :</b> full right table and matching of
+                  left table others NULL
+                </li>
+                <li>
+                  <b>Full outer join :</b> full table with NULL in unmatched
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <b>UNION, INTERSECT, MINUS/EXCEPT</b>
+          <ul>
+            <p>
+              SELECT ...
+              <br />
+              FROM ...
+              <br />
+              UNION / INTERSECT / MINUS / EXCEPT
+              <br />
+              SELECT ...
+              <br />
+              FROM ...
+            </p>
+            <li>
+              For using it in queries, both tables should have same no. and
+              types of columns.
+            </li>
+            <li>
+              Union, intersect and minus/except automatically remove duplicate
+              records.
+            </li>
+            <li>
+              For keeping duplicate records use UNION ALL instead of UNION and
+              likewise ...
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <div>
+          <h4>String Operations</h4>
+
+          <p>
+            LIKE (like is case sensitive)
+            <br />
+            '_' - character
+            <br />
+            '%' - substring
+            <br />
+            WHERE name LIKE '%das'
+            <br />
+            WHERE name LIKE '_oel'
+          </p>
+        </div>
+        <hr />
+        <div>
+          <h4>Miscellaneous</h4>
+          <p>
+            <b>Sorting by two attributes</b>
+            <br />
+            SELECT ID, CompanyName, City, Country
+            <br />
+            FROM Supplier
+            <br />
+            WHERE Country IN ('USA', 'Japan', 'Germany')
+            <br />
+            ORDER BY Country ASC, CompanyName DESC
+          </p>
+          <p>
+            <b>Where conditions</b>
+            <br />
+            WHERE condition ({"<>"} not equal) (balance between 10 and 100)
+          </p>
+        </div>
+        <hr />
+        <div>
+          <h4>NoSQL vs. SQL</h4>
+          <b>NoSQL (not only SQL)</b>
+          <ul>
+            <li>Flexible</li>
+            <li>Fast</li>
+            <li>Scalable</li>
+            <li>Suitable for large volume of data</li>
+            <li>Designed to scale out (more number of nodes)</li>
+          </ul>
+          <b>SQL</b>
+          <ul>
+            <li>Rigid</li>
+            <li>Designed to scale up (bigger size of nodes)</li>
+            <li>Suitable for structured data</li>
+          </ul>
+          <b>SQL is better when :</b>
+          <ul>
+            <li>Working with complex queries</li>
+            <li>ACID compliance</li>
+            <li>Less chance of changes or growth</li>
+          </ul>
+          <b>NoSQL is better when :</b>
+          <ul>
+            <li>Constantly there is change data, schema or data type</li>
+            <li>There is large volume of data</li>
+          </ul>
+        </div>
+      </div>
+    ),
   },
 ];
