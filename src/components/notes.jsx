@@ -1,10 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Notes extends Component {
-  state = {};
-  render() {
-    return <React.Fragment>{this.props.note}</React.Fragment>;
-  }
-}
+const Notes = ({ note }) => {
+  return <React.Fragment>{note}</React.Fragment>;
+};
 
 export default Notes;

@@ -1,27 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Index extends Component {
-  state = {};
-  render() {
-    return (
-      <ul className="list-group list-group-flush">
-        {this.props.notes.map((note) => {
-          let className = "list-group-item";
-          if (note.id === this.props.activeNoteID) className += " active";
-          return (
-            <li
-              key={note.id}
-              className={className}
-              onClick={() => this.props.handleClick(note.id)}
-              style={{ cursor: "pointer" }}
-            >
-              {note.title}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-}
+const Index = ({ notes, activeNoteID, handleClick }) => {
+  return (
+    <ul className="list-group list-group-flush">
+      {notes.map((note) => {
+        let className = "list-group-item";
+        if (note.id === activeNoteID) className += " active";
+        return (
+          <li
+            key={note.id}
+            className={className}
+            onClick={() => handleClick(note.id)}
+            style={{ cursor: "pointer" }}
+          >
+            {note.title}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 export default Index;
